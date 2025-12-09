@@ -16,17 +16,22 @@ WORKDIR /var/www/html/
 # Update package lists and upgrade installed packages
 RUN apt-get update && apt-get upgrade -y
 
+# Installs required utilities for managing repositories and downloading packages
 RUN apt-get install -y lsb-release apt-transport-https ca-certificates wget -y
 
+# Downloads and installs the GPG key for the external PHP repository
 RUN wget -qO /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 
+# Adds the official Sury PHP repository based on the system's codename
 RUN echo "deb https://packages.sury.org/php $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
+# Updates package lists to include the newly added repository
 RUN apt-get update
 
 # Install php-fpm, php-mysql, MariaDB client and wget and remove cached package files to reduce image size
 RUN apt-get install php8.1 php8.1-fpm php8.1-mysql mariadb-client wordpress wget -y
 
+# Cleans up cached package files to reduce image size
 RUN apt-get clean
 
 # Create directory required for the PHP-FPM socket

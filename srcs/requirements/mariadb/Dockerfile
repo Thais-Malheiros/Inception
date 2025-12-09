@@ -27,6 +27,8 @@ COPY        ./conf/my.cnf /etc/mysql/my.cnf
 # Copy and prepare the database initialization script
 COPY        ./tools/db-entry.sh /tmp/db-entry.sh
 
+# Grants full execution permissions to the initialization script and runs it.
+# This ensures the database is properly configured during the image build process.
 RUN         chmod 777 /tmp/db-entry.sh && bash /tmp/db-entry.sh
 
 # Start MariaDB using a safe wrapper that handles signals and restarts
