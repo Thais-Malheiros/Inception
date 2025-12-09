@@ -44,6 +44,21 @@ services:
     expose:
       - 9000
     restart: unless-stopped
+  
+  nginx:
+    depends_on:
+      - wordpress
+    container_name: nginx
+    image: nginx:42
+    build:
+      context: requirements/nginx
+    volumes:
+      - wordpress:/var/www/html/
+    networks:
+      - inception
+    ports:
+      - 443:443
+    restart: unless-stopped
 
 volumes:
   mariadb:
@@ -51,14 +66,14 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/cadete/data/mariadb
+      device: /home/${HOST_LOGIN}/data/mariadb
   
   wordpress:
     name: wordpress
     driver_opts:
       o: bind
       type: none
-      device: /home/cadete/data/wordpress
+      device: /home/${HOST_LOGIN}/data/wordpress
 
 networks:
   inception:
