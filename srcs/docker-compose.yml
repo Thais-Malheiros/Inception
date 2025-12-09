@@ -1,0 +1,66 @@
+# Containers
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:42
+    build:
+      context: requirements/mariadb
+      args:
+        - DB_NAME
+        - DB_USER
+        - DB_PASS
+    env_file:
+      - .env
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - inception
+    expose:
+      - 3306
+    restart: unless-stopped
+  
+  wordpress:
+    depends_on:
+      - mariadb
+    container_name: wordpress
+    image: wordpress:42
+    build:
+      context: requirements/wordpress
+      args:
+        - DOMAIN
+        - DB_HOST
+        - WP_USER
+        - WP_USER_PASS
+        - WP_USER_MAIL
+        - WP_ADM
+        - WP_ADM_PASS
+        - WP_ADM_MAIL
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/html/
+    networks:
+      - inception
+    expose:
+      - 9000
+    restart: unless-stopped
+
+volumes:
+  mariadb:
+    name: mariadb
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/cadete/data/mariadb
+  
+  wordpress:
+    name: wordpress
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/cadete/data/wordpress
+
+networks:
+  inception:
+    name: inception_network
+    driver: bridge
