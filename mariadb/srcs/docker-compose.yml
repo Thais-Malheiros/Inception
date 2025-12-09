@@ -1,0 +1,33 @@
+# Containers
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:42
+    build:
+      context: requirements/mariadb
+      args:
+        - DB_NAME
+        - DB_USER
+        - DB_PASS
+    env_file:
+      - .env
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - inception
+    expose:
+      - 3306
+    restart: always
+
+volumes:
+  mariadb:
+    name: mariadb
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/cadete/data/mariadb
+
+networks:
+  inception:
+    name: inception_network
+    driver: bridge
