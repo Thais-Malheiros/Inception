@@ -31,14 +31,14 @@ This will:
 
 make clean
 
-This runs `docker compose -f ./srcs/docker-compose.yml down --rmi all --volumes` and removes the host entry via `host-clean`.[file:3][file:7]
+This runs `docker compose -f ./srcs/docker-compose.yml down --rmi all --volumes` and removes the host entry via `host-clean`.[file:3]
 
 - To perform a global reset of Docker resources on your machine (use with extreme care):
 
 make reset
 make fclean
 
-`reset` stops and removes all containers, images, volumes and networks, and `fclean` prunes Docker system data and deletes some local directories/logs defined in the Makefile.[file:7]
+`reset` stops and removes all containers, images, volumes and networks, and `fclean` prunes Docker system data and deletes some local directories/logs defined in the Makefile.
 
 ## 3. Accessing the website and admin panel
 
@@ -46,7 +46,7 @@ After running `make all`:
 
 - **Website**:  
 Open one of the following in your browser:
-- `https://$(LOGIN).42.fr` (using the `/etc/hosts` entry created by `make host`).[file:5][file:7]  
+- `https://$(LOGIN).42.fr` (using the `/etc/hosts` entry created by `make host`).[file:5]  
 - Or `https://<DOMAIN>` if your `.env` defines another domain and you have proper DNS/hosts configuration.
 
 - **WordPress administration panel**:  
@@ -86,7 +86,7 @@ To change passwords or users after installation, it is usually easier to use the
 
 make ps
 
-This runs `docker compose -f ./srcs/docker-compose.yml ps` and should list `mariadb`, `wordpress` and `nginx` as running.[file:3][file:7]
+This runs `docker compose -f ./srcs/docker-compose.yml ps` and should list `mariadb`, `wordpress` and `nginx` as running.[file:3]
 
 - List Docker volumes on the system:
 

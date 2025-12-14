@@ -82,7 +82,7 @@ Here, named volumes are configured with `driver_opts` of type `bind`, effectivel
 
 make all
 
-Target `all` runs `setup` and then `up`.[file:7]  
+Target `all` runs `setup` and then `up`.  
 - `setup` creates the directories `${VOLUMES_PATH}/mariadb` and `${VOLUMES_PATH}/wordpress` under `/home/${LOGIN}/data`, sets permissions and ensures `/etc/hosts` has an entry mapping `127.0.0.1  ${LOGIN}.42.fr`.
 - `up` builds the images and starts the stack in detached mode using `docker compose -f ./srcs/docker-compose.yml up -d`.
 
@@ -110,20 +110,20 @@ make ls
 
 make open-wp
 
-This opens `http://$(LOGIN).42.fr` in the local browser, using the `/etc/hosts` entry created by `make host`.[file:7]
+This opens `http://$(LOGIN).42.fr` in the local browser, using the `/etc/hosts` entry created by `make host`.
 
 - Clean project containers, images and volumes for this stack:
 
 make clean
 
-This runs `docker compose down --rmi all --volumes` on `srcs/docker-compose.yml` and removes the host entry via `host-clean`.[file:3][file:7]
+This runs `docker compose down --rmi all --volumes` on `srcs/docker-compose.yml` and removes the host entry via `host-clean`.[file:3]
 
 - Hard reset of all Docker resources on the host (use with care):
 
 make reset
 make fclean
 
-`reset` stops and removes all containers, images, volumes and networks, while `fclean` prunes Docker system data and removes local directories/logs referenced in the Makefile.[file:7]
+`reset` stops and removes all containers, images, volumes and networks, while `fclean` prunes Docker system data and removes local directories/logs referenced in the Makefile.
 
 After `make all`, the website is available at `https://$(LOGIN).42.fr` (or at the URL defined by `DOMAIN` if DNS/hosts are adjusted accordingly).
 
